@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Felices 3 meses, lindooo</title>
+
+  <style>
+    :root {
+      --fondo-claro: #fffaf6;
+      --fondo-rosado: #f8e1dc;
+      --vino: #ab1238;
+      --rojo: #dc214d;
+      --texto: #513b38;
+      --linea: #302929;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      overflow: hidden;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--texto);
+
+      background:
+        radial-gradient(
+          circle at 13% 8%,
+          rgba(255, 255, 255, 0.96),
+          transparent 35%
+        ),
+        linear-gradient(
+          135deg,
+          var(--fondo-claro),
+          var(--fondo-rosado)
+        );
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    /* ==========================================
+       ESCENARIO
+    ========================================== */
+
+    .escenario {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      min-height: 700px;
+      overflow: hidden;
+    }
+
+    .brillo {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+
+      background:
+        radial-gradient(
+          circle at 78% 35%,
+          rgba(255, 126, 154, 0.15),
+          transparent 34%
+        );
+
+      transition: opacity 0.9s ease;
+    }
+
+    .escenario.iniciado .brillo {
+      opacity: 1;
+    }
+
+    /* ==========================================
+       LLUVIA DE CORAZONES
+    ========================================== */
+
+    #lluviaCorazones {
+      position: absolute;
+      inset: 0;
+      z-index: 30;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    /* ==========================================
+       PANTALLA INICIAL
+    ========================================== */
+
+    .pantalla-inicial {
+      position: absolute;
+      inset: 0;
+      z-index: 100;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      background:
+        radial-gradient(
+          circle at center,
+          #fffdf9,
+          #f7e4da
+        );
+
+      transition:
+        opacity 0.75s ease,
+        visibility 0.75s ease;
+    }
+
+    .pantalla-inicial.oculta {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .texto-inicial {
+      margin-top: 23px;
+      color: #84515d;
+      font-size: 18px;
+      letter-spacing: 0.3px;
+    }
+
+    /* ==========================================
+       CORAZÓN INICIAL
+    ========================================== */
+
+    .corazon-inicial {
+      position: relative;
+      width: 62px;
+      height: 56px;
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+
+      animation: latido 1.1s infinite;
+
+      filter:
+        drop-shadow(
+          0 10px 12px rgba(150, 20, 50, 0.3)
+        );
+    }
+
+    .corazon-inicial::before,
+    .corazon-inicial::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 33px;
+      height: 51px;
+      border-radius: 33px 33px 0 0;
+
+      background:
+        linear-gradient(
+          145deg,
+          #ff6684,
+          #c9143c
+        );
+    }
+
+    .corazon-inicial::before {
+      left: 31px;
+      transform: rotate(-45deg);
+      transform-origin: 0 100%;
+    }
+
+    .corazon-inicial::after {
+      left: 0;
+      transform: rotate(45deg);
+      transform-origin: 100% 100%;
+    }
+
+    @keyframes latido {
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.14);
+      }
+    }
+
+    .corazon-inicial.cayendo {
+      animation:
+        caerSemilla 1.3s
+        cubic-bezier(0.2, 0.7, 0.25, 1)
+        forwards;
+    }
+
+    @keyframes caerSemilla {
+      0% {
+        opacity: 1;
+        transform:
+          translateY(0)
+          rotate(0deg)
+          scale(1);
+      }
+
+      20% {
+        transform:
+          translateY(16px)
+          rotate(-5deg)
+          scale(1.05);
+      }
+
+      100% {
+        opacity: 0;
+        transform:
+          translateY(40vh)
+          rotate(18deg)
+          scale(0.45);
+      }
+    }
+
+    /* ==========================================
+       CONTENIDO IZQUIERDO
+    ========================================== */
+
+    .contenido-izquierdo {
+      position: absolute;
+      left: 4%;
+      top: 3%;
+      z-index: 40;
+
+      width: min(46vw, 680px);
+
+      opacity: 0;
+      transform: translateX(-40px);
+
+      transition:
+        opacity 0.75s ease,
+        transform 0.75s ease;
+    }
+
+    .escenario.mostrar-contenido .contenido-izquierdo {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .titulo {
+      margin: 0 0 28px;
+      color: var(--vino);
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size:
+        clamp(
+          51px,
+          5.25vw,
+          88px
+        );
+
+      line-height: 0.94;
+
+      text-shadow:
+        0 8px 18px rgba(140, 20, 50, 0.11);
+    }
+
+    .titulo-linea {
+      display: block;
+    }
+
+    .titulo-lindo {
+      display: block;
+      margin-top: 8px;
+      font-size: 0.58em;
+      line-height: 1.1;
+    }
+
+    /* ==========================================
+       CARTA
+    ========================================== */
+
+    .zona-carta {
+      width: min(100%, 600px);
+      height: 295px;
+      perspective: 1100px;
+    }
+
+    .carta {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+
+      border-left:
+        6px solid var(--rojo);
+
+      border-radius:
+        0 23px 23px 0;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.97),
+          rgba(255, 249, 246, 0.92)
+        );
+
+      box-shadow:
+        0 18px 42px rgba(95, 42, 52, 0.14);
+
+      transform-style: preserve-3d;
+
+      transition:
+        transform 0.12s ease-out,
+        box-shadow 0.2s ease;
+    }
+
+    .carta:hover {
+      box-shadow:
+        0 25px 52px rgba(95, 42, 52, 0.2);
+    }
+
+    .encabezado-carta {
+      height: 55px;
+
+      display: flex;
+      align-items: center;
+
+      padding:
+        0 24px;
+
+      color: #8c1737;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 20px;
+      font-weight: 700;
+
+      background:
+        rgba(255, 255, 255, 0.96);
+
+      border-bottom:
+        1px solid rgba(150, 30, 60, 0.1);
+    }
+
+    .papel-carta {
+      width: 100%;
+      height: calc(100% - 55px);
+
+      overflow-y: auto;
+      overscroll-behavior: contain;
+
+      padding:
+        16px 26px 30px;
+
+      scrollbar-width: thin;
+      scrollbar-color:
+        #d66d87
+        #f8eae6;
+    }
+
+    .papel-carta::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .papel-carta::-webkit-scrollbar-track {
+      background: #f8eae6;
+    }
+
+    .papel-carta::-webkit-scrollbar-thumb {
+      border-radius: 20px;
+
+      background:
+        linear-gradient(
+          #ed8ba2,
+          #bd2147
+        );
+    }
+
+    .mensaje {
+      margin: 0;
+      color: var(--texto);
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size:
+        clamp(
+          16px,
+          1.25vw,
+          20px
+        );
+
+      line-height: 1.55;
+      white-space: pre-line;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 3px;
+      height: 1em;
+      margin-left: 4px;
+      vertical-align: -2px;
+      background: var(--rojo);
+      animation: parpadear 0.7s infinite;
+    }
+
+    @keyframes parpadear {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* ==========================================
+       GIF DEL ÁRBOL
+    ========================================== */
+
+    .zona-arbol {
+      position: absolute;
+      right: 3%;
+      top: 5%;
+      z-index: 18;
+
+      width: min(48vw, 700px);
+      height: calc(100vh - 200px);
+      min-height: 470px;
+
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+
+      opacity: 0;
+
+      transform:
+        translateY(55px)
+        scale(0.55);
+
+      transform-origin: center bottom;
+    }
+
+    .escenario.mostrar-arbol .zona-arbol {
+      animation:
+        aparecerArbol 1.15s
+        cubic-bezier(0.2, 0.8, 0.2, 1)
+        forwards;
+    }
+
+    @keyframes aparecerArbol {
+      0% {
+        opacity: 0;
+        transform:
+          translateY(55px)
+          scale(0.55);
+      }
+
+      70% {
+        opacity: 1;
+        transform:
+          translateY(0)
+          scale(1.04);
+      }
+
+      100% {
+        opacity: 1;
+        transform:
+          translateY(0)
+          scale(1);
+      }
+    }
+
+    .imagen-arbol {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center bottom;
+      user-select: none;
+
+      filter:
+        drop-shadow(
+          0 17px 24px rgba(110, 40, 55, 0.12)
+        );
+    }
+
+    .error-imagen {
+      display: none;
+      max-width: 360px;
+
+      padding:
+        20px 24px;
+
+      border-radius: 18px;
+
+      color: #8b1536;
+
+      background:
+        rgba(255, 255, 255, 0.88);
+
+      box-shadow:
+        0 15px 35px rgba(110, 40, 55, 0.14);
+
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* ==========================================
+       LÍNEA NEGRA
+    ========================================== */
+
+    .linea-inferior {
+      position: absolute;
+      left: 0;
+      bottom: 142px;
+      z-index: 12;
+
+      width: 100%;
+      height: 3px;
+
+      opacity: 0;
+      transform: scaleX(0);
+      transform-origin: center;
+
+      background: var(--linea);
+    }
+
+    .escenario.iniciado .linea-inferior {
+      animation:
+        aparecerLinea 0.75s
+        ease-out
+        0.3s
+        forwards;
+    }
+
+    @keyframes aparecerLinea {
+      from {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+
+      to {
+        opacity: 1;
+        transform: scaleX(1);
+      }
+    }
+
+    /* ==========================================
+       CONTADOR
+    ========================================== */
+
+    .contador {
+      position: absolute;
+      left: 4%;
+      bottom: 12px;
+      z-index: 42;
+
+      width: min(620px, 48vw);
+
+      opacity: 0;
+      transform: translateY(22px);
+    }
+
+    .escenario.mostrar-contador .contador {
+      animation:
+        mostrarContador 0.65s
+        ease-out
+        forwards;
+    }
+
+    @keyframes mostrarContador {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .contador-titulo {
+      margin-bottom: 8px;
+      color: #5e4045;
+
+      font-size:
+        clamp(
+          17px,
+          1.35vw,
+          21px
+        );
+
+      font-weight: 700;
+    }
+
+    .reloj {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .unidad {
+      min-width: 104px;
+
+      padding:
+        10px 12px;
+
+      text-align: center;
+      border-radius: 18px;
+
+      background:
+        rgba(255, 255, 255, 0.91);
+
+      box-shadow:
+        0 10px 22px rgba(100, 45, 55, 0.1);
+
+      backdrop-filter:
+        blur(7px);
+    }
+
+    .numero {
+      display: block;
+      color: var(--rojo);
+
+      font-size:
+        clamp(
+          25px,
+          2.7vw,
+          39px
+        );
+
+      font-weight: 800;
+    }
+
+    .nombre {
+      display: block;
+      margin-top: 2px;
+      color: #7f5a60;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ==========================================
+       MÚSICA
+    ========================================== */
+
+    .control-musica {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 200;
+
+      width: 48px;
+      height: 48px;
+
+      display: none;
+      justify-content: center;
+      align-items: center;
+
+      border: none;
+      border-radius: 50%;
+
+      color: white;
+
+      background:
+        linear-gradient(
+          145deg,
+          #dc2a51,
+          #8e102e
+        );
+
+      box-shadow:
+        0 11px 25px rgba(130, 15, 45, 0.25);
+
+      cursor: pointer;
+    }
+
+    .control-musica.visible {
+      display: flex;
+    }
+
+    /* ==========================================
+       PANTALLAS MEDIANAS
+    ========================================== */
+
+    @media (max-width: 1050px) {
+      .contenido-izquierdo {
+        width: 48vw;
+      }
+
+      .zona-arbol {
+        right: 1%;
+        width: 49vw;
+      }
+
+      .contador {
+        width: 53vw;
+      }
+
+      .unidad {
+        min-width: 91px;
+      }
+    }
+
+    /* ==========================================
+       CELULAR
+    ========================================== */
+
+    @media (max-width: 760px) {
+      body {
+        overflow-y: auto;
+      }
+
+      .escenario {
+        height: 1260px;
+        min-height: 1260px;
+      }
+
+      .contenido-izquierdo {
+        left: 5%;
+        top: 3%;
+        width: 90%;
+      }
+
+      .titulo {
+        margin-bottom: 22px;
+        font-size: 49px;
+      }
+
+      .titulo-lindo {
+        font-size: 0.62em;
+      }
+
+      .zona-carta {
+        width: 100%;
+        height: 315px;
+      }
+
+      .carta {
+        transform: none !important;
+      }
+
+      .zona-arbol {
+        top: 510px;
+        right: auto;
+        left: 50%;
+
+        width: 92vw;
+        height: 570px;
+
+        transform:
+          translateX(-50%)
+          translateY(55px)
+          scale(0.55);
+      }
+
+      @keyframes aparecerArbol {
+        0% {
+          opacity: 0;
+
+          transform:
+            translateX(-50%)
+            translateY(55px)
+            scale(0.55);
+        }
+
+        70% {
+          opacity: 1;
+
+          transform:
+            translateX(-50%)
+            translateY(0)
+            scale(1.04);
+        }
+
+        100% {
+          opacity: 1;
+
+          transform:
+            translateX(-50%)
+            translateY(0)
+            scale(1);
+        }
+      }
+
+      .linea-inferior {
+        bottom: 150px;
+      }
+
+      .contador {
+        left: 5%;
+        bottom: 10px;
+        width: 90%;
+      }
+
+      .unidad {
+        min-width: 74px;
+        padding: 9px 7px;
+      }
+
+      .numero {
+        font-size: 25px;
+      }
+
+      .nombre {
+        font-size: 9px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <audio
+    id="musica"
+    loop
+    preload="auto"
+  >
+    <source
+      src="musica.mp3"
+      type="audio/mpeg"
+    >
+  </audio>
+
+  <button
+    class="control-musica"
+    id="controlMusica"
+    aria-label="Pausar o reproducir música"
+  >
+    ❚❚
+  </button>
+
+  <main
+    class="escenario"
+    id="escenario"
+  >
+
+    <div class="brillo"></div>
+
+    <canvas id="lluviaCorazones"></canvas>
+
+    <section
+      class="pantalla-inicial"
+      id="pantallaInicial"
+    >
+
+      <button
+        class="corazon-inicial"
+        id="corazonInicial"
+        aria-label="Comenzar sorpresa"
+      ></button>
+
+      <p class="texto-inicial">
+        Toca el corazón
+      </p>
+
+    </section>
+
+    <section class="contenido-izquierdo">
+
+      <h1 class="titulo">
+
+        <span class="titulo-linea">
+          Felices 3 meses,
+        </span>
+
+        <span class="titulo-lindo">
+          lindooo!!
+        </span>
+
+      </h1>
+
+      <div
+        class="zona-carta"
+        id="zonaCarta"
+      >
+
+        <article
+          class="carta"
+          id="carta"
+        >
+
+          <div class="encabezado-carta">
+            Para ti, lindo:
+          </div>
+
+          <div
+            class="papel-carta"
+            id="papelCarta"
+          >
+
+            <p class="mensaje">
+
+              <span id="textoMaquina"></span>
+
+              <span class="cursor"></span>
+
+            </p>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+    <section class="zona-arbol">
+
+      <img
+        src="./arbol.gif"
+        alt="Árbol de corazones"
+        class="imagen-arbol"
+        id="imagenArbol"
+      >
+
+      <div
+        class="error-imagen"
+        id="errorImagen"
+      >
+        No se encontró el archivo arbol.gif. Revisa que esté en la misma carpeta que index.html.
+      </div>
+
+    </section>
+
+    <div class="linea-inferior"></div>
+
+    <section class="contador">
+
+      <div class="contador-titulo">
+        Mi amor por ti comenzó hace…
+      </div>
+
+      <div
+        class="reloj"
+        id="reloj"
+      ></div>
+
+    </section>
+
+  </main>
+
+  <script>
+    const escenario =
+      document.getElementById("escenario");
+
+    const pantallaInicial =
+      document.getElementById("pantallaInicial");
+
+    const corazonInicial =
+      document.getElementById("corazonInicial");
+
+    const musica =
+      document.getElementById("musica");
+
+    const controlMusica =
+      document.getElementById("controlMusica");
+
+    const textoMaquina =
+      document.getElementById("textoMaquina");
+
+    const zonaCarta =
+      document.getElementById("zonaCarta");
+
+    const carta =
+      document.getElementById("carta");
+
+    const imagenArbol =
+      document.getElementById("imagenArbol");
+
+    const errorImagen =
+      document.getElementById("errorImagen");
+
+    const canvas =
+      document.getElementById("lluviaCorazones");
+
+    const ctx =
+      canvas.getContext("2d");
+
+    let paginaIniciada = false;
+    let musicaActiva = false;
+    let lluviaActiva = false;
+
+    musica.volume = 0.08;
+
+    /* ==========================================
+       COMPROBAR EL GIF
+    ========================================== */
+
+    imagenArbol.addEventListener(
+      "load",
+      function () {
+        imagenArbol.style.display = "block";
+        errorImagen.style.display = "none";
+      }
+    );
+
+    imagenArbol.addEventListener(
+      "error",
+      function () {
+        imagenArbol.style.display = "none";
+        errorImagen.style.display = "block";
+      }
+    );
+
+    /* ==========================================
+       TEXTO EXACTO DE LA CARTA
+    ========================================== */
+
+    const mensaje = `No sé exactamente desde qué momento empezó todo esto.
+    
+    Podría decir que comenzó el 3 de mayo, porque fue cuando decidimos hacerlo oficial, pero los dos sabemos que ya veníamos vacilando desde antes.
+
+Desde la primera vez que te vi me llamaste bastante la atención. Me pareciste muy atractivo, fue tanto la atracción que te dije que apostemos a que no tomarás pero al fin y al cabo, terminé llevándote a una fiesta con la intención totalmente inocente de pasar un buen rato… y quizá besuquearte un poco...solo un poco oks? 
+
+Pero fue lo mejor que pasó, ese día que recuerdo con vergüenza y emoción. En donde nuestros sentimientos empezaron a florecer.
+
+Ese día, el 20 de febrero.
+
+Estábamos tomando, yo tenía menos filtro del habitual y terminé diciéndote que me gustabas. No sé si fue la forma más elegante de confesarlo, pero al menos fui sincera. La valentía apareció gracias al alcohol, pero lo que te dije sí era completamente cierto.
+
+Desde ahí empezamos a conocernos mejor, a hablar más y a descubrir que esto podía convertirse en algo bonito.
+
+Luego llegó el 3 de mayo y decidimos empezar oficialmente esta historia.
+
+En estos tres meses hemos tenido conversaciones bonitas, momentos graciosos, pequeñas diferencias, risas y muchas cosas que todavía estamos aprendiendo el uno del otro.
+
+Quiero que sepas que te tengo un cariño enorme y que me importas muchísimo.
+
+Gracias por tu paciencia, por tu manera de quererme y por todos esos detalles que quizá parecen pequeños, pero son los mejores que me hacen sentir segura, tranquila y felíz de estar contigo.
+
+Felices tres meses, lindo.
+
+Espero que sigamos creando recuerdos, riéndonos de nuestras propias tonterías y aprendiendo a cuidar esto que tenemos.
+
+Te amo muchísimo, mi vida.`;
+
+    let posicionTexto = 0;
+
+    function escribirMensaje() {
+
+      if (
+        posicionTexto >=
+        mensaje.length
+      ) {
+        return;
+      }
+
+      const caracter =
+        mensaje.charAt(posicionTexto);
+
+      textoMaquina.textContent +=
+        caracter;
+
+      posicionTexto++;
+
+      /*
+        Velocidad normal más lenta para poder leer.
+      */
+
+      let velocidad = 48;
+
+      /*
+        Pausas naturales después de ciertos signos.
+      */
+
+      if (caracter === ".") {
+        velocidad = 340;
+      }
+
+      if (caracter === ",") {
+        velocidad = 130;
+      }
+
+      if (caracter === "…") {
+        velocidad = 300;
+      }
+
+      if (caracter === "\n") {
+        velocidad = 400;
+      }
+
+      /*
+        Ya no se mueve automáticamente el scroll.
+        Puedes subir y bajar libremente mientras se escribe.
+      */
+
+      setTimeout(
+        escribirMensaje,
+        velocidad
+      );
+    }
+
+    /* ==========================================
+       INCLINACIÓN DE LA CARTA
+    ========================================== */
+
+    zonaCarta.addEventListener(
+      "mousemove",
+      function (evento) {
+
+        const rect =
+          zonaCarta.getBoundingClientRect();
+
+        const porcentajeX =
+          (
+            evento.clientX -
+            rect.left
+          ) /
+          rect.width;
+
+        const porcentajeY =
+          (
+            evento.clientY -
+            rect.top
+          ) /
+          rect.height;
+
+        const rotacionX =
+          (0.5 - porcentajeY) * 8;
+
+        const rotacionY =
+          (porcentajeX - 0.5) * 4;
+
+        carta.style.transform = `
+          rotateX(${rotacionX}deg)
+          rotateY(${rotacionY}deg)
+        `;
+      }
+    );
+
+    zonaCarta.addEventListener(
+      "mouseleave",
+      function () {
+        carta.style.transform =
+          "rotateX(0deg) rotateY(0deg)";
+      }
+    );
+
+    /* ==========================================
+       LLUVIA DE CORAZONES
+    ========================================== */
+
+    const colores = [
+      "#820d2b",
+      "#a51035",
+      "#c91843",
+      "#df365a",
+      "#ef6683",
+      "#f68ca3",
+      "#fbb1bf",
+      "#ffd0d8"
+    ];
+
+    let ancho = 0;
+    let alto = 0;
+    let escala = 1;
+
+    const corazones = [];
+
+    function ajustarCanvas() {
+
+      escala =
+        Math.min(
+          window.devicePixelRatio || 1,
+          1.5
+        );
+
+      ancho =
+        window.innerWidth;
+
+      alto =
+        window.innerHeight;
+
+      canvas.width =
+        ancho * escala;
+
+      canvas.height =
+        alto * escala;
+
+      canvas.style.width =
+        ancho + "px";
+
+      canvas.style.height =
+        alto + "px";
+
+      ctx.setTransform(
+        escala,
+        0,
+        0,
+        escala,
+        0,
+        0
+      );
+    }
+
+    ajustarCanvas();
+
+    window.addEventListener(
+      "resize",
+      ajustarCanvas
+    );
+
+    function crearCorazon() {
+
+      corazones.push({
+        x:
+          Math.random() * ancho,
+
+        y:
+          -30 -
+          Math.random() * 130,
+
+        tamano:
+          6 +
+          Math.random() * 10,
+
+        velocidad:
+          0.5 +
+          Math.random() * 0.65,
+
+        desplazamiento:
+          -0.11 +
+          Math.random() * 0.22,
+
+        amplitud:
+          0.25 +
+          Math.random() * 0.55,
+
+        fase:
+          Math.random() *
+          Math.PI *
+          2,
+
+        rotacion:
+          Math.random() *
+          Math.PI *
+          2,
+
+        velocidadRotacion:
+          -0.011 +
+          Math.random() * 0.022,
+
+        opacidad:
+          0.5 +
+          Math.random() * 0.38,
+
+        color:
+          colores[
+            Math.floor(
+              Math.random() *
+              colores.length
+            )
+          ]
+      });
+    }
+
+    function dibujarCorazon(
+      x,
+      y,
+      tamano,
+      rotacion,
+      color,
+      opacidad
+    ) {
+
+      ctx.save();
+
+      ctx.translate(x, y);
+      ctx.rotate(rotacion);
+
+      ctx.globalAlpha =
+        opacidad;
+
+      ctx.fillStyle =
+        color;
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        0,
+        tamano * 0.35
+      );
+
+      ctx.bezierCurveTo(
+        -tamano * 0.85,
+        -tamano * 0.2,
+
+        -tamano * 0.48,
+        -tamano * 0.9,
+
+        0,
+        -tamano * 0.42
+      );
+
+      ctx.bezierCurveTo(
+        tamano * 0.48,
+        -tamano * 0.9,
+
+        tamano * 0.85,
+        -tamano * 0.2,
+
+        0,
+        tamano * 0.35
+      );
+
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    let tiempoAnterior = 0;
+    let acumulador = 0;
+
+    function animarLluvia(tiempo) {
+
+      if (!lluviaActiva) {
+        return;
+      }
+
+      const diferencia =
+        Math.min(
+          32,
+          tiempo -
+          tiempoAnterior ||
+          16
+        );
+
+      tiempoAnterior =
+        tiempo;
+
+      acumulador +=
+        diferencia;
+
+      if (
+        acumulador > 190 &&
+        corazones.length < 48
+      ) {
+
+        crearCorazon();
+
+        acumulador = 0;
+      }
+
+      ctx.clearRect(
+        0,
+        0,
+        ancho,
+        alto
+      );
+
+      for (
+        let i =
+          corazones.length - 1;
+
+        i >= 0;
+
+        i--
+      ) {
+
+        const corazon =
+          corazones[i];
+
+        corazon.fase +=
+          0.016 *
+          diferencia;
+
+        corazon.x +=
+          corazon.desplazamiento *
+          diferencia *
+          0.06;
+
+        corazon.x +=
+          Math.sin(
+            corazon.fase
+          ) *
+          corazon.amplitud;
+
+        corazon.y +=
+          corazon.velocidad *
+          diferencia *
+          0.06;
+
+        corazon.rotacion +=
+          corazon.velocidadRotacion *
+          diferencia *
+          0.06;
+
+        let opacidad =
+          corazon.opacidad;
+
+        if (
+          corazon.y >
+          alto - 100
+        ) {
+
+          opacidad *=
+            Math.max(
+              0,
+              (
+                alto -
+                corazon.y
+              ) /
+              100
+            );
+        }
+
+        dibujarCorazon(
+          corazon.x,
+          corazon.y,
+          corazon.tamano,
+          corazon.rotacion,
+          corazon.color,
+          opacidad
+        );
+
+        if (
+          corazon.y >
+          alto + 40
+        ) {
+
+          corazones.splice(
+            i,
+            1
+          );
+        }
+      }
+
+      requestAnimationFrame(
+        animarLluvia
+      );
+    }
+
+    function iniciarLluvia() {
+
+      if (lluviaActiva) {
+        return;
+      }
+
+      lluviaActiva = true;
+
+      tiempoAnterior =
+        performance.now();
+
+      requestAnimationFrame(
+        animarLluvia
+      );
+    }
+
+    /* ==========================================
+       CONTADOR
+    ========================================== */
+
+    const fechaConfesion =
+      new Date(
+        "2026-02-20T00:00:00-05:00"
+      );
+
+    function crearUnidad(
+      numero,
+      nombre
+    ) {
+
+      return `
+        <div class="unidad">
+
+          <span class="numero">
+            ${String(numero).padStart(2, "0")}
+          </span>
+
+          <span class="nombre">
+            ${nombre}
+          </span>
+
+        </div>
+      `;
+    }
+
+    function actualizarReloj() {
+
+      const ahora =
+        new Date();
+
+      let diferencia =
+        Math.max(
+          0,
+          ahora -
+          fechaConfesion
+        );
+
+      const segundo = 1000;
+      const minuto = segundo * 60;
+      const hora = minuto * 60;
+      const dia = hora * 24;
+
+      const dias =
+        Math.floor(
+          diferencia / dia
+        );
+
+      diferencia %= dia;
+
+      const horas =
+        Math.floor(
+          diferencia / hora
+        );
+
+      diferencia %= hora;
+
+      const minutos =
+        Math.floor(
+          diferencia / minuto
+        );
+
+      diferencia %= minuto;
+
+      const segundos =
+        Math.floor(
+          diferencia / segundo
+        );
+
+      document.getElementById(
+        "reloj"
+      ).innerHTML =
+        crearUnidad(
+          dias,
+          "días"
+        )
+        +
+        crearUnidad(
+          horas,
+          "horas"
+        )
+        +
+        crearUnidad(
+          minutos,
+          "minutos"
+        )
+        +
+        crearUnidad(
+          segundos,
+          "segundos"
+        );
+    }
+
+    actualizarReloj();
+
+    setInterval(
+      actualizarReloj,
+      1000
+    );
+
+    /* ==========================================
+       INICIO
+    ========================================== */
+
+    corazonInicial.addEventListener(
+      "click",
+      function () {
+
+        if (paginaIniciada) {
+          return;
+        }
+
+        paginaIniciada = true;
+
+        corazonInicial.classList.add(
+          "cayendo"
+        );
+
+        musica.play()
+          .then(
+            function () {
+
+              musicaActiva = true;
+
+              controlMusica.textContent =
+                "❚❚";
+            }
+          )
+          .catch(
+            function () {
+
+              musicaActiva = false;
+
+              controlMusica.textContent =
+                "♪";
+            }
+          );
+
+        controlMusica.classList.add(
+          "visible"
+        );
+
+        iniciarLluvia();
+
+        setTimeout(
+          function () {
+
+            escenario.classList.add(
+              "iniciado"
+            );
+          },
+          480
+        );
+
+        setTimeout(
+          function () {
+
+            pantallaInicial.classList.add(
+              "oculta"
+            );
+          },
+          970
+        );
+
+        setTimeout(
+          function () {
+
+            escenario.classList.add(
+              "mostrar-arbol"
+            );
+          },
+          1050
+        );
+
+        setTimeout(
+          function () {
+
+            escenario.classList.add(
+              "mostrar-contenido"
+            );
+
+            escribirMensaje();
+          },
+          2050
+        );
+
+        setTimeout(
+          function () {
+
+            escenario.classList.add(
+              "mostrar-contador"
+            );
+          },
+          2350
+        );
+      }
+    );
+
+    /* ==========================================
+       CONTROL DE MÚSICA
+    ========================================== */
+
+    controlMusica.addEventListener(
+      "click",
+      function () {
+
+        if (musicaActiva) {
+
+          musica.pause();
+
+          musicaActiva = false;
+
+          controlMusica.textContent =
+            "♪";
+
+        } else {
+
+          musica.play();
+
+          musicaActiva = true;
+
+          controlMusica.textContent =
+            "❚❚";
+        }
+      }
+    );
+  </script>
+
+</body>
+
+</html>
